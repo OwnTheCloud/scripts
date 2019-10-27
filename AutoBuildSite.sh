@@ -9,9 +9,16 @@ PROFILE=default # Keep as "default" unless you use Profiles.
 ## Build hugo site in hugo working directory.
 hugo -v
 
+## Push to Github
+cd public
+git add .
+git commit -m "Another message"
+git push -u ownthecloud
+
 ## Copy over pages - not static js/img/css/downloads
 ## Add --exclude 'img' --exclude 'js' --exclude 'downloads' --exclude 'css', to the top command to control cache behaivor.
-aws s3 sync --profile ${PROFILE} --acl "public-read" --sse "AES256" public/ s3://${BUCKET_NAME}/
+
+# aws s3 sync --profile ${PROFILE} --acl "public-read" --sse "AES256" public/ s3://${BUCKET_NAME}/
 
 ## Ensure static files are set to cache forever - cache for a month --cache-control "max-age=2592000"
 # aws s3 sync --profile ${PROFILE} --cache-control "max-age=2592000" --acl "public-read" --sse "AES256" public/img/ s3://${BUCKET_NAME}/img/
